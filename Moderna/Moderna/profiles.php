@@ -49,16 +49,6 @@ $allMessages->execute(array());
 
 <!-- Theme skin -->
 <link href="skins/default.css" rel="stylesheet" />
-
-<!-- =======================================================
-    Theme Name: Moderna
-    Theme URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-======================================================= -->
-<style>
-
-</style>
 </head>
 <body>
 <div id="wrapper">
@@ -75,12 +65,26 @@ $allMessages->execute(array());
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
                         <li><a href="profiles.php">View Profiles </a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="user_profile.php">Create Profile</a></li>
+						<li><a href="plant_page.php">Plant Page</a></li>
+						<li><a href="following.php">Following</a></li>
+						<li><a href="plant_profile.php">Plant Profile Page</a></li>
+
                     </ul>
                 </div>
             </div>
         </div>
 	</header>
+	<!-- end header -->
+	<section id="inner-headline">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				
+			</div>
+		</div>
+	</div>
+	</section>
 	
 	<section class="callaction">
 	<div class="container">
@@ -88,28 +92,44 @@ $allMessages->execute(array());
 			<div class="col-lg-12">
 				<div class="big-cta">
 					<div class="cta-text">
-						<h2><span>Plantogram</span>...Instagram for plant enthusiast</h2>
+						<h2><span>Plantogram</span>...Instagram for plant enthusiasts</h2>
 					</div>
-                    <div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
     <?php
     while($thisRow = $allMessages->fetch(PDO::FETCH_ASSOC)){
-        echo("<div class='card-block'>
-        name:{$thisRow['name']} 
-        potId:{$thisRow['potId']}
-        password:{$thisRow['password']} 
-        owner:{$thisRow['owner']} 
-        location:{$thisRow['location']} 
-        plantType:{$thisRow['plantType']}
-        </div>");
+        echo("<div class=\"col-xs-3\" style=\"overflow: hidden;\">
+		<a href=\"#\" class=\"thumbnail\"></a>
+			<p>name: {$thisRow['name']}</p> 
+			<p>potId: {$thisRow['potId']}</p>
+			<p>password: {$thisRow['password']}</p> 
+			<p>owner: {$thisRow['owner']}</p> 
+			<p>location: {$thisRow['location']}</p> 
+			<p>Planttype: {$thisRow['plantType']}</p>
+		
+		
+    </div>");
     }
     ?>
-</div>
+<section class="callaction">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="big-cta">
+					<div class="cta-text">
+						<h2><span>Plants</span>...that you're following</h2>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<footer>
+<footer>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
@@ -197,8 +217,13 @@ $allMessages->execute(array());
 <script src="js/portfolio/jquery.quicksand.js"></script>
 <script src="js/portfolio/setting.js"></script>
 <script src="js/jquery.flexslider.js"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
+<script>
+</script>
+<script src="contactform/contactform.js"></script>
 
 </body>
 </html>
+

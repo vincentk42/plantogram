@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Sample Plantogram Site</title>
+<title>Plant Profile Page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://bootstraptaste.com" />
@@ -40,7 +39,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
                         <li><a href="profiles.php">View Profiles </a></li>
-                        <li><a href="user_profile.php">Create Profile</a></li>
+                        <li><a href="process.php">Create Profile</a></li>
 						<li><a href="plant_page.php">Plant Page</a></li>
 						<li><a href="following.php">Following</a></li>
 						<li><a href="plant_profile.php">Plant Profile Page</a></li>
@@ -60,8 +59,41 @@
 		</div>
 	</div>
 	</section>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<h4>Create your plant profile below</h4>
+				<form method="post" action="process_plant_profile.php">
+                <div id="sendmessage">Your message has been sent. Thank you!</div>
+                <div id="errormessage"></div>
+                <div class="form-group">
+                    <input type="text" name="plant_Owner" class="form-control" id="plant_Owner" placeholder="Plant Owner" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Name" id="plant_Name" placeholder="Plant Name" data-rule="minlen:4" data-msg="Please enter at least 4 characters" />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Type" id="plant_Type" placeholder="Plant Type" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                    <div class="validation"></div>
+                </div>
+                    <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Location" id="plant_Location" placeholder="Plant Location" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validation"></div>
+                </div>
+
+                <div class="text-center"><button type="submit" class="btn btn-theme">Submit Info</button></div> 
+                </form>
+			</div>
+		</div>
+	</div				
 	
-	<section class="callaction">
+    
+    
+    
+    <section class="callaction">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">

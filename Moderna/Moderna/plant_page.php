@@ -1,32 +1,4 @@
 <!DOCTYPE html>
-<?php
-$name = $_REQUEST["user_name"];
-//echo($name);
-$potId = $_REQUEST["user_potId"];
-$password = $_REQUEST["user_password"];
-$owner = $_REQUEST["user_owner"];
-$location = $_REQUEST["user_location"];
-$plantType = $_REQUEST["user_plantType"];
-
-$dbConn = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "");
-$prepStmt = $dbConn->prepare("INSERT INTO `planttest` (`name`, `potId`, `password`, `owner`, `location`, `plantType`) values ( :name, :potId, :password, :owner, :location, :plantType)");
-
-$paramsForDatabase = [":name" => $name
-                    ,":potId" => $potId
-                    ,":password" => $password
-                    ,":owner" => $owner
-                    ,":location" => $location
-                    ,":plantType" => $plantType
-]; 
-$results = $prepStmt->execute($paramsForDatabase);
-if(! $results)
-        {
-            $errorMsg[] = "Database probs, yo.";
-            $errorMsg = $errorMsg + $dbConn->errorInfo();
-            
-        }
-
-?>
 
 <html lang="en">
 <head>
@@ -45,13 +17,13 @@ if(! $results)
 <!-- Theme skin -->
 <link href="skins/default.css" rel="stylesheet" />
 
-<!-- =======================================================
-    Theme Name: Moderna
-    Theme URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-======================================================= -->
+<style>
+   .card {
+    float: none;
+    margin: 0 auto;
+} 
 
+</style>
 </head>
 <body>
 <div id="wrapper">
@@ -88,7 +60,20 @@ if(! $results)
 		</div>
 	</div>
 	</section>
-	
+
+
+<div class="card" style="width: 40rem;">
+
+  <img class="card-img-top" src="plant1.jpg" alt="Card image cap">
+  <div class="card-block">
+    <h4 class="card-title">Card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+
+
 	<section class="callaction">
 	<div class="container">
 		<div class="row">
@@ -101,59 +86,8 @@ if(! $results)
 			</div>
 		</div>
 	</div>
-	<!-- end header -->
-	<section id="inner-headline">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				
-			</div>
-		</div>
-	</div>
-	</section>
-	<section id="content">
-	
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<h4>Get in touch with us by filling <strong>contact form below</strong></h4>
-				<form method="post" action="process.php">
-                <div id="sendmessage">Your message has been sent. Thank you!</div>
-                <div id="errormessage"></div>
-                    
-					<div class="form-group">
-                        <input type="text" name="user_name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                        <div class="validation"></div>
-                    </div>
-                    
-					<div class="form-group">
-                        <input type="text" class="form-control" name="user_potId" id="potId" placeholder="potId" data-rule="minlen:4" data-msg="Please enter at least 4 characters" />
-                        <div class="validation"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="user_password" id="password" placeholder="password" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                        <div class="validation"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="user_owner" id="owner" placeholder="owner" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                        <div class="validation"></div>
-                    </div>
-					
-                    <div class="form-group">
-                        <input type="text" name="user_location" class="form-control" id="location" placeholder="location" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                        <div class="validation"></div>
-                    </div>
-					<div class="form-group">
-                        <input type="text" name="user_plantType" class="form-control" id="plantType" placeholder="plantType" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                        <div class="validation"></div>
-                    </div>
-                    <div class="text-center"><button type="submit" class="btn btn-theme">Submit Info</button></div>
-                </form>
-			</div>
-		</div>
-	</div>
-	</section>
-	<footer>
+
+<footer>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
@@ -245,7 +179,6 @@ if(! $results)
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
 <script>
-alert("information accepted!");
 </script>
 <script src="contactform/contactform.js"></script>
 

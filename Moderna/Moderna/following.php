@@ -1,9 +1,42 @@
 <!DOCTYPE html>
+<?php
+    $name = "";
+    $potId = "";
+    $password = "";
+    $owner = "";
+    $location = "";
+    $plantType = "";
+        
+    $dbConn = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "");
+
+if (isset($_REQUEST["name"]) === true ) {
+         $name = ($_REQUEST["name"]);
+    }
+if (isset($_REQUEST["potId"]) === true ) {
+         $potId = ($_REQUEST["potId"]);
+    }
+if (isset($_REQUEST["passowrd"]) === true ) {
+         $password = ($_REQUEST["password"]);
+    }
+if (isset($_REQUEST["owner"]) === true ) {
+         $owner = ($_REQUEST["owner"]);
+    }
+if (isset($_REQUEST["location"]) === true ) {
+         $location = ($_REQUEST["location"]);
+    }
+if (isset($_REQUEST["plantType"]) === true ) {
+         $plantType = ($_REQUEST["plantType"]);
+    }
+
+$allMessages = $dbConn->prepare("SELECT `name`, `potId`, `password`, `owner`, `location`, `plantType` from `planttest`");
+$allMessages->execute(array());
+
+?>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Following</title>
-
+<title>Sample Plantogram Site</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://bootstraptaste.com" />
@@ -33,143 +66,64 @@
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><span>P</span>lantogram</a>
+                    <a class="navbar-brand" href="index.php"><span>P</span>lantogram</a>
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.html">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">Profiles <b class=" icon-angle-down"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="typography.html">Typography</a></li>
-                                <li><a href="components.html">Components</a></li>
-								<li><a href="pricingbox.html">Pricing box</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li class="active"><a href="index.php">Home</a></li>
+                        <li><a href="profiles.php">View Profiles </a></li>
+                        <li><a href="user_profile.php">Create Profile</a></li>
+						<li><a href="plant_page.php">Plant Page</a></li>
+						<li><a href="following.php">Following</a></li>
+						<li><a href="plant_profile.php">Plant Profile Page</a></li>
+
                     </ul>
                 </div>
             </div>
         </div>
 	</header>
 	<!-- end header -->
-	<section id="featured">
-	<!-- start slider -->
+	<section id="inner-headline">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-	<!-- Slider -->
-        <div id="main-slider" class="flexslider">
-            <ul class="slides">
-              <li>
-                <!--<img src="" alt="" />-->
-                <!--<div class="flex-caption">
-                    <h3>Modern Design</h3> 
-					<p>Duis fermentum auctor ligula ac malesuada. Mauris et metus odio, in pulvinar urna</p> 
-					<!--<a href="#" class="btn btn-theme">Learn More</a>-->
-                <!--</div>
-              </li>
-              <li>
-                <img src="" alt="" />
-                <div class="flex-caption">
-                    <h3>Fully Responsive</h3> 
-					<p>Sodales neque vitae justo sollicitudin aliquet sit amet diam curabitur sed fermentum.</p> 
-					<a href="#" class="btn btn-theme">Learn More</a>
-                </div>
-              </li>
-              <li>
-                <img src="" alt="" />
-                <div class="flex-caption">
-                    <h3>Clean & Fast</h3> 
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit donec mer lacinia.</p> 
-					<a href="#" class="btn btn-theme">Learn More</a>
-                </div>-->
-              </li>
-            </ul>
-        </div>
-	<!-- end slider -->
+				
 			</div>
 		</div>
-	</div>	
-	
-<div class="container">
-  <h1>Bootstrap 3 Responsive Image Grid</h1>
-  <hr>
-  
-  <h2>Non-stacking grid example<p class="lead">Uses the tiny <code>.col-*</code> grid classes</p></h2>
-  <p>This layout displays <b>4 images per row</b>. Bootstrap 3 sizes images "responsively" using the <code>img-responsive</code> CSS class. As browser width shrinks, the columns and images scale down accordingly...</p>
-  <div class="row">
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-     <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-xs-3">
-        <a href="#" class="thumbnail">
-             <img src="http://placehold.it/350x150" class="img-responsive">
-        </a>
-    </div>
-  </div>
-  <p>This demonstrates a completely percentage-based responsive (A.K.A. "fluid") layout. The negative aspect of this layout is that it starts to look like the last line of an eye chart at smaller widths.</p>
-  <p>Since the "eye chart" aspect isn't really a good thing, let's see how we can use Bootstrap's three powerful grid sizes to improve our design...</p>
-  
+	</div>
 	</section>
+	
+	<section class="callaction">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="big-cta">
+					<div class="cta-text">
+						<h2><span>Plantogram</span>...Instagram for plant enthusiasts</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+  <h1>Here are the plants you're following</h1>
+  <hr>
+
+  <p>click on the pictures to get more detailed information</p>
+  <div class="row">
+    <?php
+      while($thisRow = $allMessages->fetch(PDO::FETCH_ASSOC)){
+        echo("<div class=\"col-xs-3\" style=\"overflow: hidden;\">
+            <a href=\"#\" class=\"thumbnail\">
+                <h2>name: {$thisRow['name']}</h2>
+                plantType: {$thisRow['plantType']}
+            </a>
+        </div>");
+      } 
+    ?>
+    
 	<section class="callaction">
 	<div class="container">
 		<div class="row">
@@ -183,19 +137,19 @@
 		</div>
 	</div>
 	
-	<footer>
+<footer>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="widget">
 					<h5 class="widgetheading">Get in touch with us</h5>
 					<address>
-					<strong>Moderna company Inc</strong><br>
-					 Modernbuilding suite V124, AB 01<br>
-					 Someplace 16425 Earth </address>
+					<strong>Plantogram LLC</strong><br>
+					 310 Teheran-ro, Suite 801(The goddamned frog building yo!)<br>
+					 Seoul, South Korea(AKA, not North, West or East) </address>
 					<p>
-						<i class="icon-phone"></i> (123) 456-7890 - (123) 555-7891 <br>
-						<i class="icon-envelope-alt"></i> email@domainname.com
+						<i class="icon-phone"></i>02-501-6064<br>
+						<i class="icon-envelope-alt"></i> info@wcoding.com
 					</p>
 				</div>
 			</div>
@@ -211,7 +165,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-3">
+			<!--<div class="col-lg-3">
 				<div class="widget">
 					<h5 class="widgetheading">Latest posts</h5>
 					<ul class="link-list">
@@ -220,36 +174,30 @@
 						<li><a href="#">Natus error sit voluptatem accusantium doloremque</a></li>
 					</ul>
 				</div>
-			</div>
-			<div class="col-lg-3">
+			</div>-->
+			<!--<div class="col-lg-3">
 				<div class="widget">
 					<h5 class="widgetheading">Flickr photostream</h5>
 					<div class="flickr_badge">
-						<script type="text/javascript" src="https://www.flickr.com/badge_code_v2.gne?count=8&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=34178660@N03"></script>
+						<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=34178660@N03"></script>
 					</div>
 					<div class="clear">
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</div>
 	</div>
 	<div id="sub-footer">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6">
+				<!--<div class="col-lg-6">
 					<div class="copyright">
 						<p>&copy; Moderna Theme. All right reserved.</p>
                         <div class="credits">
-                            <!-- 
-                                All the links in the footer should remain intact. 
-                                You can delete the links only if you purchased the pro version.
-                                Licensing information: https://bootstrapmade.com/license/
-                                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Moderna
-                            -->
                             <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                         </div>
 					</div>
-				</div>
+				</div>-->
 				<div class="col-lg-6">
 					<ul class="social-network">
 						<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -277,8 +225,13 @@
 <script src="js/portfolio/jquery.quicksand.js"></script>
 <script src="js/portfolio/setting.js"></script>
 <script src="js/jquery.flexslider.js"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
+<script>
+</script>
+<script src="contactform/contactform.js"></script>
 
 </body>
 </html>
+
