@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Sample Plantogram Site</title>
+<title>Plant Profile Page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://bootstraptaste.com" />
@@ -13,17 +12,8 @@
 <link href="css/jcarousel.css" rel="stylesheet" />
 <link href="css/flexslider.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet" />
-
-<!-- Theme skin -->
+<link rel="stylesheet" href="style.css">
 <link href="skins/default.css" rel="stylesheet" />
-
-<style>
-   .card {
-    float: none;
-    margin: 0 auto;
-} 
-
-</style>
 </head>
 <body>
 <div id="wrapper">
@@ -39,12 +29,11 @@
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="profiles.php">View Profiles </a></li>
-                        <li><a href="user_profile.php">Create Profile</a></li>
-						<li><a href="plant_page.php">Plant Page</a></li>
-						<li><a href="following.php">Following</a></li>
-						<li><a href="plant_profile.php">Plant Profile Page</a></li>
-
+                        <li><a href="create_user_profile.php">Create User Profile </a></li>
+                        <li><a href="create_plant_profile.php">Create Plant Profile</a></li>
+						<li><a href="user_profiles.php">User Profile</a></li>
+						<li><a href="plant_profile.php">Plant Profile</a></li>
+						<li><a href="plants_followed.php">Plants Followed</a></li>
                     </ul>
                 </div>
             </div>
@@ -61,20 +50,41 @@
 	</div>
 	</section>
 
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<h4>Create your plant profile below</h4>
+				<form id ="ajax-plant" form method="post" action="process_plant_profile.php">
+                <div id="form-messages"></div>
+				<div id="sendmessage">Your message has been sent. Thank you!</div>
+                <div id="errormessage"></div>
+                <div class="form-group">
+                    <input type="text" name="plant_Owner" class="form-control" id="plant_Owner" placeholder="Plant Owner" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Name" id="plant_Name" placeholder="Plant Name" data-rule="minlen:4" data-msg="Please enter at least 4 characters" />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Type" id="plant_Type" placeholder="Plant Type" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                    <div class="validation"></div>
+                </div>
+                    <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Location" id="plant_Location" placeholder="Plant Location" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validation"></div>
+                </div>
 
-<div class="card" style="width: 40rem;">
-
-  <img class="card-img-top" src="plant1.jpg" alt="Card image cap">
-  <div class="card-block">
-    <h4 class="card-title">Card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-
-
-
-	<section class="callaction">
+                <div class="text-center"><button type="submit" class="btn btn-theme">Submit Info</button></div> 
+                </form>
+			</div>
+		</div>
+	</div				
+	
+    
+    
+    
+    <section class="callaction">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -86,11 +96,11 @@
 			</div>
 		</div>
 	</div>
-
-<footer>
+	
+	<footer>
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-3">
+			<div class="col-lg-12">
 				<div class="widget">
 					<h5 class="widgetheading">Get in touch with us</h5>
 					<address>
@@ -103,51 +113,12 @@
 					</p>
 				</div>
 			</div>
-			<div class="col-lg-3">
-				<div class="widget">
-					<h5 class="widgetheading">Pages</h5>
-					<ul class="link-list">
-						<li><a href="#">Press release</a></li>
-						<li><a href="#">Terms and conditions</a></li>
-						<li><a href="#">Privacy policy</a></li>
-						<li><a href="#">Career center</a></li>
-						<li><a href="#">Contact us</a></li>
-					</ul>
-				</div>
-			</div>
-			<!--<div class="col-lg-3">
-				<div class="widget">
-					<h5 class="widgetheading">Latest posts</h5>
-					<ul class="link-list">
-						<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
-						<li><a href="#">Pellentesque et pulvinar enim. Quisque at tempor ligula</a></li>
-						<li><a href="#">Natus error sit voluptatem accusantium doloremque</a></li>
-					</ul>
-				</div>
-			</div>-->
-			<!--<div class="col-lg-3">
-				<div class="widget">
-					<h5 class="widgetheading">Flickr photostream</h5>
-					<div class="flickr_badge">
-						<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=34178660@N03"></script>
-					</div>
-					<div class="clear">
-					</div>
-				</div>
-			</div>-->
+			
 		</div>
 	</div>
 	<div id="sub-footer">
 		<div class="container">
 			<div class="row">
-				<!--<div class="col-lg-6">
-					<div class="copyright">
-						<p>&copy; Moderna Theme. All right reserved.</p>
-                        <div class="credits">
-                            <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                        </div>
-					</div>
-				</div>-->
 				<div class="col-lg-6">
 					<ul class="social-network">
 						<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -175,13 +146,9 @@
 <script src="js/portfolio/jquery.quicksand.js"></script>
 <script src="js/portfolio/setting.js"></script>
 <script src="js/jquery.flexslider.js"></script>
-<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
-<script>
-</script>
-<script src="contactform/contactform.js"></script>
-
+<script src="jquery-2.1.0.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
-

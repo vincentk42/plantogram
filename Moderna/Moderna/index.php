@@ -39,11 +39,11 @@
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="profiles.php">View Profiles </a></li>
-                        <li><a href="user_profile.php">Create Profile</a></li>
-						<li><a href="plant_page.php">Plant Page</a></li>
-						<li><a href="following.php">Following</a></li>
-						<li><a href="plant_profile.php">Plant Profile Page</a></li>
+                        <li><a href="create_user_profile.php">Create User Profile </a></li>
+                        <li><a href="create_plant_profile.php">Create Plant Profile</a></li>
+						<li><a href="user_profiles.php">User Profile</a></li>
+						<li><a href="plant_profile.php">Plant Profile</a></li>
+						<li><a href="plants_followed.php">Plants Followed</a></li>
 
                     </ul>
                 </div>

@@ -1,32 +1,4 @@
 <!DOCTYPE html>
-<?php
-$name = $_REQUEST["user_name"];
-//echo($name);
-$potId = $_REQUEST["user_potId"];
-$password = $_REQUEST["user_password"];
-$owner = $_REQUEST["user_owner"];
-$location = $_REQUEST["user_location"];
-$plantType = $_REQUEST["user_plantType"];
-
-$dbConn = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "");
-$prepStmt = $dbConn->prepare("INSERT INTO `planttest` (`name`, `potId`, `password`, `owner`, `location`, `plantType`) values ( :name, :potId, :password, :owner, :location, :plantType)");
-
-$paramsForDatabase = [":name" => $name
-                    ,":potId" => $potId
-                    ,":password" => $password
-                    ,":owner" => $owner
-                    ,":location" => $location
-                    ,":plantType" => $plantType
-]; 
-$results = $prepStmt->execute($paramsForDatabase);
-if(! $results)
-        {
-            $errorMsg[] = "Database probs, yo.";
-            $errorMsg = $errorMsg + $dbConn->errorInfo();
-            
-        }
-
-?>
 
 <html lang="en">
 <head>
@@ -66,12 +38,12 @@ if(! $results)
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="profiles.php">View Profiles </a></li>
-                        <li><a href="user_profile.php">Create Profile</a></li>
-						<li><a href="plant_page.php">Plant Page</a></li>
-						<li><a href="following.php">Following</a></li>
-						<li><a href="plant_profile.php">Plant Profile Page</a></li>
+                       <li class="active"><a href="index.php">Home</a></li>
+                        <li><a href="create_user_profile.php">Create User Profile </a></li>
+                        <li><a href="create_plant_profile.php">Create Plant Profile</a></li>
+						<li><a href="user_profiles.php">User Profile</a></li>
+						<li><a href="plant_profile.php">Plant Profile</a></li>
+						<li><a href="plants_followed.php">Plants Followed</a></li>
 
                     </ul>
                 </div>
@@ -101,23 +73,11 @@ if(! $results)
 			</div>
 		</div>
 	</div>
-	<!-- end header -->
-	<section id="inner-headline">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				
-			</div>
-		</div>
-	</div>
-	</section>
-	<section id="content">
-	
-	<div class="container">
+<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<h4>Get in touch with us by filling <strong>contact form below</strong></h4>
-				<form method="post" action="process.php">
+				<h4>Create your user profile <strong>here</strong></h4>
+				<form method="post" action="process_user_profile.php">
                 <div id="sendmessage">Your message has been sent. Thank you!</div>
                 <div id="errormessage"></div>
                     
@@ -245,7 +205,6 @@ if(! $results)
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
 <script>
-alert("information accepted!");
 </script>
 <script src="contactform/contactform.js"></script>
 

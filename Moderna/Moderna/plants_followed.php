@@ -1,4 +1,37 @@
 <!DOCTYPE html>
+<?php
+    $name = "";
+    $potId = "";
+    $password = "";
+    $owner = "";
+    $location = "";
+    $plantType = "";
+        
+    $dbConn = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "");
+
+if (isset($_REQUEST["name"]) === true ) {
+         $name = ($_REQUEST["name"]);
+    }
+if (isset($_REQUEST["potId"]) === true ) {
+         $potId = ($_REQUEST["potId"]);
+    }
+if (isset($_REQUEST["passowrd"]) === true ) {
+         $password = ($_REQUEST["password"]);
+    }
+if (isset($_REQUEST["owner"]) === true ) {
+         $owner = ($_REQUEST["owner"]);
+    }
+if (isset($_REQUEST["location"]) === true ) {
+         $location = ($_REQUEST["location"]);
+    }
+if (isset($_REQUEST["plantType"]) === true ) {
+         $plantType = ($_REQUEST["plantType"]);
+    }
+
+$allMessages = $dbConn->prepare("SELECT `name`, `potId`, `password`, `owner`, `location`, `plantType` from `planttest`");
+$allMessages->execute(array());
+
+?>
 
 <html lang="en">
 <head>
@@ -14,15 +47,10 @@
 <link href="css/flexslider.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet" />
 
-<!-- Theme skin -->
+
 <link href="skins/default.css" rel="stylesheet" />
 
-<!-- =======================================================
-    Theme Name: Moderna
-    Theme URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-======================================================= -->
+
 
 </head>
 <body>
@@ -38,12 +66,12 @@
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="profiles.php">View Profiles </a></li>
-                        <li><a href="user_profile.php">Create Profile</a></li>
-						<li><a href="plant_page.php">Plant Page</a></li>
-						<li><a href="following.php">Following</a></li>
-						<li><a href="plant_profile.php">Plant Profile Page</a></li>
+                      <li class="active"><a href="index.php">Home</a></li>
+                        <li><a href="create_user_profile.php">Create User Profile </a></li>
+                        <li><a href="create_plant_profile.php">Create Plant Profile</a></li>
+						<li><a href="user_profiles.php">User Profile</a></li>
+						<li><a href="plant_profile.php">Plant Profile</a></li>
+						<li><a href="plants_followed.php">Plants Followed</a></li>
 
                     </ul>
                 </div>
@@ -73,47 +101,38 @@
 			</div>
 		</div>
 	</div>
-<div class="container">
+	
+
+  <h1>Here are the plants you're following</h1>
+  <hr>
+
+  <p>click on the pictures to get more detailed information</p>
+  <div class="row">
+    <?php
+      while($thisRow = $allMessages->fetch(PDO::FETCH_ASSOC)){
+        echo("<div class=\"col-xs-3\" style=\"overflow: hidden;\">
+            <a href=\"#\" class=\"thumbnail\">
+                <h2>name: {$thisRow['name']}</h2>
+                plantType: {$thisRow['plantType']}
+            </a>
+        </div>");
+      } 
+    ?>
+    
+	<section class="callaction">
+	<div class="container">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<h4>Create your user profile <strong>here</strong></h4>
-				<form method="post" action="process.php">
-                <div id="sendmessage">Your message has been sent. Thank you!</div>
-                <div id="errormessage"></div>
-                    
-					<div class="form-group">
-                        <input type="text" name="user_name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                        <div class="validation"></div>
-                    </div>
-                    
-					<div class="form-group">
-                        <input type="text" class="form-control" name="user_potId" id="potId" placeholder="potId" data-rule="minlen:4" data-msg="Please enter at least 4 characters" />
-                        <div class="validation"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="user_password" id="password" placeholder="password" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                        <div class="validation"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="user_owner" id="owner" placeholder="owner" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                        <div class="validation"></div>
-                    </div>
-					
-                    <div class="form-group">
-                        <input type="text" name="user_location" class="form-control" id="location" placeholder="location" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                        <div class="validation"></div>
-                    </div>
-					<div class="form-group">
-                        <input type="text" name="user_plantType" class="form-control" id="plantType" placeholder="plantType" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                        <div class="validation"></div>
-                    </div>
-                    <div class="text-center"><button type="submit" class="btn btn-theme">Submit Info</button></div>
-                </form>
+			<div class="col-lg-12">
+				<div class="big-cta">
+					<div class="cta-text">
+						<h2><span>Plants</span>...that you're following</h2>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	</section>
-	<footer>
+	
+<footer>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
