@@ -1,9 +1,13 @@
 <!doctype html>
+<?php
+    require("common.php");
+?>
+<!doctype html>
 <html>
 
 <head>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="769192399218-r4a3o154mnvq42m7i0dp1vbd69lk2l4e.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="<?php echo $googleLogin; ?>">
 </head>
 
 <body>
