@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Sample Plantogram Site</title>
+<title>Plant Profile Page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://bootstraptaste.com" />
@@ -13,17 +12,8 @@
 <link href="css/jcarousel.css" rel="stylesheet" />
 <link href="css/flexslider.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet" />
-
-<!-- Theme skin -->
+<link rel="stylesheet" href="style.css">
 <link href="skins/default.css" rel="stylesheet" />
-
-<!-- =======================================================
-    Theme Name: Moderna
-    Theme URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-======================================================= -->
-
 </head>
 <body>
 <div id="wrapper">
@@ -44,7 +34,6 @@
 						<li><a href="user_profiles.php">User Profile</a></li>
 						<li><a href="plant_profile.php">Plant Profile</a></li>
 						<li><a href="plants_followed.php">Plants Followed</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -60,8 +49,42 @@
 		</div>
 	</div>
 	</section>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<h4>Create your plant profile below</h4>
+				<form id ="ajax-plant" form method="post" action="process_plant_profile.php">
+                <div id="form-messages"></div>
+				<div id="sendmessage">Your message has been sent. Thank you!</div>
+                <div id="errormessage"></div>
+                <div class="form-group">
+                    <input type="text" name="plant_Owner" class="form-control" id="plant_Owner" placeholder="Plant Owner" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Name" id="plant_Name" placeholder="Plant Name" data-rule="minlen:4" data-msg="Please enter at least 4 characters" />
+                    <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Type" id="plant_Type" placeholder="Plant Type" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                    <div class="validation"></div>
+                </div>
+                    <div class="form-group">
+                    <input type="text" class="form-control" name="plant_Location" id="plant_Location" placeholder="Plant Location" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validation"></div>
+                </div>
+
+                <div class="text-center"><button type="submit" class="btn btn-theme">Submit Info</button></div> 
+                </form>
+			</div>
+		</div>
+	</div				
 	
-	<section class="callaction">
+    
+    
+    
+    <section class="callaction">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -125,6 +148,7 @@
 <script src="js/jquery.flexslider.js"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
-
+<script src="jquery-2.1.0.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

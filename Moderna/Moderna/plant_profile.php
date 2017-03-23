@@ -1,37 +1,4 @@
 <!DOCTYPE html>
-<?php
-    $name = "";
-    $potId = "";
-    $password = "";
-    $owner = "";
-    $location = "";
-    $plantType = "";
-        
-    $dbConn = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "");
-
-if (isset($_REQUEST["name"]) === true ) {
-         $name = ($_REQUEST["name"]);
-    }
-if (isset($_REQUEST["potId"]) === true ) {
-         $potId = ($_REQUEST["potId"]);
-    }
-if (isset($_REQUEST["passowrd"]) === true ) {
-         $password = ($_REQUEST["password"]);
-    }
-if (isset($_REQUEST["owner"]) === true ) {
-         $owner = ($_REQUEST["owner"]);
-    }
-if (isset($_REQUEST["location"]) === true ) {
-         $location = ($_REQUEST["location"]);
-    }
-if (isset($_REQUEST["plantType"]) === true ) {
-         $plantType = ($_REQUEST["plantType"]);
-    }
-
-$allMessages = $dbConn->prepare("SELECT `name`, `potId`, `password`, `owner`, `location`, `plantType` from `planttest`");
-$allMessages->execute(array());
-
-?>
 
 <html lang="en">
 <head>
@@ -50,13 +17,11 @@ $allMessages->execute(array());
 <!-- Theme skin -->
 <link href="skins/default.css" rel="stylesheet" />
 
-<!-- =======================================================
-    Theme Name: Moderna
-    Theme URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-======================================================= -->
 <style>
+   .card {
+    float: none;
+    margin: 0 auto;
+} 
 
 </style>
 </head>
@@ -74,42 +39,55 @@ $allMessages->execute(array());
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="profiles.php">View Profiles </a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="create_user_profile.php">Create User Profile </a></li>
+                        <li><a href="create_plant_profile.php">Create Plant Profile</a></li>
+						<li><a href="user_profiles.php">User Profile</a></li>
+						<li><a href="plant_profile.php">Plant Profile</a></li>
+						<li><a href="plants_followed.php">Plants Followed</a></li>
+
                     </ul>
                 </div>
             </div>
         </div>
 	</header>
-	
+	<!-- end header -->
+	<section id="inner-headline">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				
+			</div>
+		</div>
+	</div>
+	</section>
+
+
+<div class="card" style="width: 40rem;">
+
+  <img class="card-img-top" src="plant1.jpg" alt="Card image cap">
+  <div class="card-block">
+    <h4 class="card-title">Card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+
+
 	<section class="callaction">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="big-cta">
 					<div class="cta-text">
-						<h2><span>Plantogram</span>...Instagram for plant enthusiast</h2>
+						<h2><span>Plantogram</span>...Instagram for plant enthusiasts</h2>
 					</div>
-                    <div>
-    <?php
-    while($thisRow = $allMessages->fetch(PDO::FETCH_ASSOC)){
-        echo("<div class='card-block'>
-        name:{$thisRow['name']} 
-        potId:{$thisRow['potId']}
-        password:{$thisRow['password']} 
-        owner:{$thisRow['owner']} 
-        location:{$thisRow['location']} 
-        plantType:{$thisRow['plantType']}
-        </div>");
-    }
-    ?>
-</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<footer>
+
+<footer>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
@@ -197,8 +175,13 @@ $allMessages->execute(array());
 <script src="js/portfolio/jquery.quicksand.js"></script>
 <script src="js/portfolio/setting.js"></script>
 <script src="js/jquery.flexslider.js"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
+<script>
+</script>
+<script src="contactform/contactform.js"></script>
 
 </body>
 </html>
+
