@@ -111,10 +111,11 @@ $allMessages->execute(array());
     <?php
       while($thisRow = $allMessages->fetch(PDO::FETCH_ASSOC)){
         echo("<div class=\"col-xs-3\" style=\"overflow: hidden;\">
-            <a href=\"#\" class=\"thumbnail\">
+            <a href=\"#\" class=\"thumbnail\"></a>
+			<img src=\"plant1.jpg\">
                 <h2>name: {$thisRow['name']}</h2>
                 plantType: {$thisRow['plantType']}
-            </a>
+            
         </div>");
       } 
     ?>

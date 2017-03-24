@@ -77,34 +77,38 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<h4>Create your user profile <strong>here</strong></h4>
-				<form method="post" action="process_user_profile.php">
+				<form id="user_profile" method="post" action="process_user_profile.php">
                 <div id="sendmessage">Your message has been sent. Thank you!</div>
                 <div id="errormessage"></div>
                     
 					<div class="form-group">
-                        <input type="text" name="user_name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                        <input type="text" name="user_name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
                         <div class="validation"></div>
                     </div>
                     
 					<div class="form-group">
-                        <input type="text" class="form-control" name="user_potId" id="potId" placeholder="potId" data-rule="minlen:4" data-msg="Please enter at least 4 characters" />
+                        <input type="text" class="form-control" name="user_potId" id="potId" placeholder="potId" data-rule="minlen:4" data-msg="Please enter at least 4 characters" required/>
                         <div class="validation"></div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="user_password" id="password" placeholder="password" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                        <input type="text" class="form-control" name="user_password" id="password" placeholder="password" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required/>
                         <div class="validation"></div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="user_owner" id="owner" placeholder="owner" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                        <input type="text" class="form-control" name="user_owner" id="owner" placeholder="owner" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required/>
                         <div class="validation"></div>
                     </div>
 					
                     <div class="form-group">
-                        <input type="text" name="user_location" class="form-control" id="location" placeholder="location" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                        <input type="text" name="user_location" class="form-control" id="location" placeholder="location" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
                         <div class="validation"></div>
                     </div>
 					<div class="form-group">
-                        <input type="text" name="user_plantType" class="form-control" id="plantType" placeholder="plantType" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                        <input type="text" name="user_plantType" class="form-control" id="plantType" placeholder="plantType" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
+                        <div class="validation"></div>
+                    </div>
+					<div class="form-group">
+                        <input type="text" name="user_plantPic" class="form-control" id="plantPic" placeholder="plantPic" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
                         <div class="validation"></div>
                     </div>
                     <div class="text-center"><button type="submit" class="btn btn-theme">Submit Info</button></div>
@@ -189,9 +193,46 @@
 	</footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+<script src="js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#user_profile').on('submit', function(e){
+			e.preventDefault();
+			var userName = $('#name').val();
+			var userpotId = $('#potId').val();
+			var userPassword = $('#password').val();
+			var userOwner = $('#owner').val();
+			var userLocation = $('#location').val();
+			var userPlantType = $('#plantType').val();
+			var userplantPic = $('#plantPic').val();
+			console.log("hey man nice shot" + userName);
+			$.ajax({
+				type: "POST",
+				url: 'process_user_profile.php',
+				data: {
+					userName: userName,
+					userpotId: userpotId,
+					userPassword: userPassword,
+					userOwner: userOwner,
+					userLocation: userLocation,
+					userPlantType: userPlantType,
+					userplantPic: userplantPic,
+				},
+				success: function(data){
+					alert(data);
+					console.log("hey jackass" + userName);
+					$("#user_profile")[0].reset();
+
+				}
+			});
+		});
+	});
+</script>
+
 <!-- javascript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="//code.jquery.com/jquery-1.11.3.min.js?x41610"></script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -201,12 +242,8 @@
 <script src="js/portfolio/jquery.quicksand.js"></script>
 <script src="js/portfolio/setting.js"></script>
 <script src="js/jquery.flexslider.js"></script>
-<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
-<script>
-</script>
-<script src="contactform/contactform.js"></script>
 
 </body>
 </html>

@@ -12,7 +12,7 @@
 <link href="css/jcarousel.css" rel="stylesheet" />
 <link href="css/flexslider.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="style.css">
+
 <link href="skins/default.css" rel="stylesheet" />
 </head>
 <body>
@@ -54,24 +54,23 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<h4>Create your plant profile below</h4>
-				<form id ="ajax-plant" form method="post" action="process_plant_profile.php">
-                <div id="form-messages"></div>
-				<div id="sendmessage">Your message has been sent. Thank you!</div>
+				<form method="post" action="process_plant_profile.php" id="plant_profile">
+                <div id="sendmessage">Your message has been sent. Thank you!</div>
                 <div id="errormessage"></div>
                 <div class="form-group">
-                    <input type="text" name="plant_Owner" class="form-control" id="plant_Owner" placeholder="Plant Owner" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <input type="text" name="plant_Owner" class="form-control" id="plant_Owner" placeholder="Plant Owner" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
                     <div class="validation"></div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="plant_Name" id="plant_Name" placeholder="Plant Name" data-rule="minlen:4" data-msg="Please enter at least 4 characters" />
+                    <input type="text" class="form-control" name="plant_Name" id="plant_Name" placeholder="Plant Name" data-rule="minlen:4" data-msg="Please enter at least 4 characters" required/>
                     <div class="validation"></div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="plant_Type" id="plant_Type" placeholder="Plant Type" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                    <input type="text" class="form-control" name="plant_Type" id="plant_Type" placeholder="Plant Type" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required />
                     <div class="validation"></div>
                 </div>
                     <div class="form-group">
-                    <input type="text" class="form-control" name="plant_Location" id="plant_Location" placeholder="Plant Location" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                    <input type="text" class="form-control" name="plant_Location" id="plant_Location" placeholder="Plant Location" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required/>
                 <div class="validation"></div>
                 </div>
 
@@ -134,10 +133,41 @@
 	</footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+<script src="js/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#plant_profile').on('submit', function(e){
+			//Stop the form from submitting itself to the server.
+			e.preventDefault();
+			var plantOwner = $('#plant_Owner').val();
+			var plantName = $('#plant_Name').val();
+			var plantType = $('#plant_Type').val();
+			var plantLocation = $('#plant_Location').val();
+			$.ajax({
+				type: "POST",
+				url: 'process_plant_profile.php',
+				data: {
+					plantOwner: plantOwner,
+					plantName: plantName,
+					plantType: plantType,
+					plantLocation: plantLocation	
+
+				},
+				success: function(data){
+					alert(data);
+					$("#plant_profile")[0].reset();
+
+				}
+			});
+		});
+	});
+
+</script>
+
 <!-- javascript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery.js"></script>
+<!--<script src="//code.jquery.com/jquery-1.11.3.min.js?"></script>-->
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.fancybox.pack.js"></script>
@@ -148,7 +178,6 @@
 <script src="js/jquery.flexslider.js"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
-<script src="jquery-2.1.0.min.js"></script>
-<script src="app.js"></script>
+
 </body>
 </html>

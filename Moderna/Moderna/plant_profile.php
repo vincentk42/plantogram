@@ -1,3 +1,16 @@
+<?php
+
+$host="localhost";
+$username="root";
+$password="";
+$databasename="test";
+
+$connect=mysql_connect($host,$username,$password);
+$db=mysql_select_db($databasename);
+
+$select=mysql_query("select name,comment,post_time from comments");
+
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -13,7 +26,7 @@
 <link href="css/jcarousel.css" rel="stylesheet" />
 <link href="css/flexslider.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet" />
-
+ <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
 <!-- Theme skin -->
 <link href="skins/default.css" rel="stylesheet" />
 
@@ -24,6 +37,10 @@
 } 
 
 </style>
+<script>
+
+</script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -63,17 +80,90 @@
 
 
 <div class="card" style="width: 40rem;">
-
   <img class="card-img-top" src="plant1.jpg" alt="Card image cap">
   <div class="card-block">
-    <h4 class="card-title">Card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <h4 class="card-title">Plant Name</h4>
+    <p class="card-text">Small description of plant</p>
+    <a href="#" class="btn btn-primary">click on this to enlarge photo</a>
   </div>
 </div>
+<br>
+<br>
+<form method='post' action="" onsubmit="return post();">
+  <textarea id="comment" placeholder="Write Your Comment Here....."></textarea>
+  <br>
+  <input type="text" id="username" placeholder="Your Name">
+  <br>
+  <input type="button" value="Post Comment" id="finished">
+  </form>
+  <div id="all_comments">	
+	<div class="comment_div"> 
+	</div>
+  </div>
+<script>
+document.getElementById("finished").addEventListener("click", validateForm);
+function validateForm(){
+	var errorMessage = "";
+
+	var nameEnteredElem = document.getElementById("username");
+	var nameEntered = nameEnteredElem.value;
+	if (!nameEntered) {
+		alert(errorMessage += "You must enter your name");
+		nameEnteredElem.focus();
+		nameEnteredElem.style.backgroundColor = "lightyellow";
+		return;
+	}
+
+	var commentEnteredElem = document.getElementById("comment");
+	var commentEntered = commentEnteredElem.value;
+	if (!commentEntered) {
+		alert(errorMessage += "You must enter a comment!");
+		commentEnteredElem.focus();
+		commentEnteredElem.style.backgroundColor = "lightyellow";
+		return;
+	}
+
+	var xHRequest = new XMLHttpRequest();
+
+	xHRequest.onreadystatechange = function() {
+		if(this.readyState === 4 && this.status === 200){
+			alert("Response from server: " + xHRequest.responseText);
+		}
+	}
+
+	var encodednameEntered = encodeURI(nameEntered);
+	var nameEnteredParams = "username=" + encodednameEntered;
+
+	var encodedCommentEntered = encodeURI(commentEntered);
+	var commentParams = "comment=" + encodedCommentEntered;
 
 
+	var allInputsReceived = nameEnteredParams + "&" + commentParams;
 
+	xHRequest.open("POST", "post_comments.php")
+
+	xHRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	//alert("message check" + allInputsReceived);
+	xHRequest.send(allInputsReceived);
+	// document.getElementById("theForm").submit(); no longer needed due to the use of Ajax
+}
+
+</script>
+<?php
+  while($row=mysql_fetch_array($select))
+  {
+	  $name=$row['name'];
+	  $comment=$row['comment'];
+      $time=$row['post_time'];
+  ?>
+      <div id="commentDiv" class="comment_div"> 
+	    <p class="name">Posted By:<?php echo $name;?></p>
+        <p class="comment"><?php echo $comment;?></p>	
+	    <p class="time"><?php echo $time;?></p>
+	  </div>
+  <?php
+  }
+?>
 	<section class="callaction">
 	<div class="container">
 		<div class="row">
