@@ -41,7 +41,7 @@
                         <li class="active"><a href="index.php">Home</a></li>
                         <li><a href="create_user_profile.php">Create User Profile </a></li>
                         <li><a href="create_plant_profile.php">Create Plant Profile</a></li>
-						<li><a href="user_profiles.php">User Profile</a></li>
+						<li><a href="users_followed.php">Users Followed</a></li>
 						<li><a href="plant_profile.php">Plant Profile</a></li>
 						<li><a href="plants_followed.php">Plants Followed</a></li>
 

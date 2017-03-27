@@ -41,7 +41,7 @@
                        <li class="active"><a href="index.php">Home</a></li>
                         <li><a href="create_user_profile.php">Create User Profile </a></li>
                         <li><a href="create_plant_profile.php">Create Plant Profile</a></li>
-						<li><a href="user_profiles.php">User Profile</a></li>
+						<li><a href="users_followed.php">Users Followed</a></li>
 						<li><a href="plant_profile.php">Plant Profile</a></li>
 						<li><a href="plants_followed.php">Plants Followed</a></li>
 
@@ -91,7 +91,7 @@
                         <div class="validation"></div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="user_password" id="password" placeholder="password" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required/>
+                        <input type="password" class="form-control" name="user_password" id="password" placeholder="password" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required/>
                         <div class="validation"></div>
                     </div>
                     <div class="form-group">
@@ -145,39 +145,11 @@
 					</ul>
 				</div>
 			</div>
-			<!--<div class="col-lg-3">
-				<div class="widget">
-					<h5 class="widgetheading">Latest posts</h5>
-					<ul class="link-list">
-						<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
-						<li><a href="#">Pellentesque et pulvinar enim. Quisque at tempor ligula</a></li>
-						<li><a href="#">Natus error sit voluptatem accusantium doloremque</a></li>
-					</ul>
-				</div>
-			</div>-->
-			<!--<div class="col-lg-3">
-				<div class="widget">
-					<h5 class="widgetheading">Flickr photostream</h5>
-					<div class="flickr_badge">
-						<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=34178660@N03"></script>
-					</div>
-					<div class="clear">
-					</div>
-				</div>
-			</div>-->
 		</div>
 	</div>
 	<div id="sub-footer">
 		<div class="container">
 			<div class="row">
-				<!--<div class="col-lg-6">
-					<div class="copyright">
-						<p>&copy; Moderna Theme. All right reserved.</p>
-                        <div class="credits">
-                            <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                        </div>
-					</div>
-				</div>-->
 				<div class="col-lg-6">
 					<ul class="social-network">
 						<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
