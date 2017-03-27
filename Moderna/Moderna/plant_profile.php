@@ -1,18 +1,33 @@
 <?php
 
-$host="localhost";
-$username="root";
-$password="";
-$databasename="test";
+	$name = "";
+	$comment = "";
+	$time = "";
 
-$connect=mysql_connect($host,$username,$password);
-$db=mysql_select_db($databasename);
+	$host="localhost";
+	$username="root";
+	$password="";
+	$databasename="test";
 
-$select=mysql_query("select name,comment,post_time from comments");
+	$dbConn = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "");
+
+if (isset($_REQUEST["name"]) === true ) {
+         $name = ($_REQUEST["name"]);
+    }
+
+if (isset($_REQUEST["comment"]) === true ) {
+		$comment = ($_REQUEST["comment"]);
+}
+
+if(isset($_REQUEST["post_time"]) === true) {
+		$time = ($_REQUEST["post_time"]);
+}
+
+$allMessages = $dbConn->prepare("SELECT `name`, `comment`, `post_time` from `comments`");
+$allMessages->execute(array());
 
 ?>
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -26,15 +41,10 @@ $select=mysql_query("select name,comment,post_time from comments");
 <link href="css/jcarousel.css" rel="stylesheet" />
 <link href="css/flexslider.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet" />
- <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
 <!-- Theme skin -->
 <link href="skins/default.css" rel="stylesheet" />
 
 <style>
-   .card {
-    float: none;
-    margin: 0 auto;
-} 
 
 </style>
 <script>
@@ -78,7 +88,6 @@ $select=mysql_query("select name,comment,post_time from comments");
 	</div>
 	</section>
 
-
 <div class="card" style="width: 40rem;">
   <img class="card-img-top" src="plant1.jpg" alt="Card image cap">
   <div class="card-block">
@@ -89,93 +98,74 @@ $select=mysql_query("select name,comment,post_time from comments");
 </div>
 <br>
 <br>
-<form method='post' action="" onsubmit="return post();">
+<form method='post' action="post_comments.php" id="commentForm">
   <textarea id="comment" placeholder="Write Your Comment Here....."></textarea>
   <br>
-  <input type="text" id="username" placeholder="Your Name">
+  <input type="text" id="name" placeholder="Your Name">
   <br>
-  <input type="button" value="Post Comment" id="finished">
+  <input type="submit" value="Post Comment" id="finished">
   </form>
   <div id="all_comments">	
 	<div class="comment_div"> 
 	</div>
   </div>
+
+<div class="row";>
+
+<script src="js/jquery.js"></script>
 <script>
-document.getElementById("finished").addEventListener("click", validateForm);
-function validateForm(){
-	var errorMessage = "";
-
-	var nameEnteredElem = document.getElementById("username");
-	var nameEntered = nameEnteredElem.value;
-	if (!nameEntered) {
-		alert(errorMessage += "You must enter your name");
-		nameEnteredElem.focus();
-		nameEnteredElem.style.backgroundColor = "lightyellow";
-		return;
-	}
-
-	var commentEnteredElem = document.getElementById("comment");
-	var commentEntered = commentEnteredElem.value;
-	if (!commentEntered) {
-		alert(errorMessage += "You must enter a comment!");
-		commentEnteredElem.focus();
-		commentEnteredElem.style.backgroundColor = "lightyellow";
-		return;
-	}
-
-	var xHRequest = new XMLHttpRequest();
-
-	xHRequest.onreadystatechange = function() {
-		if(this.readyState === 4 && this.status === 200){
-			alert("Response from server: " + xHRequest.responseText);
-		}
-	}
-
-	var encodednameEntered = encodeURI(nameEntered);
-	var nameEnteredParams = "username=" + encodednameEntered;
-
-	var encodedCommentEntered = encodeURI(commentEntered);
-	var commentParams = "comment=" + encodedCommentEntered;
-
-
-	var allInputsReceived = nameEnteredParams + "&" + commentParams;
-
-	xHRequest.open("POST", "post_comments.php")
-
-	xHRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	//alert("message check" + allInputsReceived);
-	xHRequest.send(allInputsReceived);
-	// document.getElementById("theForm").submit(); no longer needed due to the use of Ajax
-}
+	$(document).ready(function(e){
+		$('#commentForm').on('submit', function(e){
+			e.preventDefault();
+			var name = $('#name').val();
+			var comment = $('#comment').val();
+			//var time = $('#time').val();
+			//console.log("hey man" + comment);			
+			$.ajax({
+				type: "POST",
+				url: 'process_comment.php',
+				data: {
+					name:  name,
+					comment: comment,
+					//time: time,
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log("BACKATYOU: " + data);
+					$("#commentForm")[0].reset();
+					//console.log("check this out" + json['post_time']);
+				},
+				error: function(e) {
+					console.log("HAMMER TIME!");
+					console.log(e);
+				}
+			});
+		});
+	});
 
 </script>
 <?php
-  while($row=mysql_fetch_array($select))
-  {
-	  $name=$row['name'];
-	  $comment=$row['comment'];
-      $time=$row['post_time'];
-  ?>
-      <div id="commentDiv" class="comment_div"> 
-	    <p class="name">Posted By:<?php echo $name;?></p>
-        <p class="comment"><?php echo $comment;?></p>	
-	    <p class="time"><?php echo $time;?></p>
-	  </div>
-  <?php
-  }
+  while($thisrow = $allMessages->fetch(PDO::FETCH_ASSOC)){
+    echo("<div class=\"col-xs-3\" style=\"overflow: hidden; border-color:#333\">
+                <p>name: {$thisrow['name']}</p>
+                <p>comment: {$thisrow['comment']}</p>
+				<p>timesent: {$thisrow['post_time']}</p>
+        </div>");
+      } 
 ?>
-	<section class="callaction">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="big-cta">
-					<div class="cta-text">
-						<h2><span>Plantogram</span>...Instagram for plant enthusiasts</h2>
-					</div>
+
+<section class="callaction">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="big-cta">
+				<div class="cta-text">
+					<h2><span>Plantogram</span>...Instagram for plant enthusiasts</h2>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 <footer>
 	<div class="container">
@@ -205,39 +195,11 @@ function validateForm(){
 					</ul>
 				</div>
 			</div>
-			<!--<div class="col-lg-3">
-				<div class="widget">
-					<h5 class="widgetheading">Latest posts</h5>
-					<ul class="link-list">
-						<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
-						<li><a href="#">Pellentesque et pulvinar enim. Quisque at tempor ligula</a></li>
-						<li><a href="#">Natus error sit voluptatem accusantium doloremque</a></li>
-					</ul>
-				</div>
-			</div>-->
-			<!--<div class="col-lg-3">
-				<div class="widget">
-					<h5 class="widgetheading">Flickr photostream</h5>
-					<div class="flickr_badge">
-						<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=34178660@N03"></script>
-					</div>
-					<div class="clear">
-					</div>
-				</div>
-			</div>-->
 		</div>
 	</div>
 	<div id="sub-footer">
 		<div class="container">
 			<div class="row">
-				<!--<div class="col-lg-6">
-					<div class="copyright">
-						<p>&copy; Moderna Theme. All right reserved.</p>
-                        <div class="credits">
-                            <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                        </div>
-					</div>
-				</div>-->
 				<div class="col-lg-6">
 					<ul class="social-network">
 						<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -256,6 +218,14 @@ function validateForm(){
 <!-- javascript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script>
+	var nameVal = document.getElementById("name").value;
+	var commentVal = document.getElementById("comment").value;
+	//console.log('here are your values' + nameVal + " " + commentVal);
+
+
+
+</script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -265,13 +235,8 @@ function validateForm(){
 <script src="js/portfolio/jquery.quicksand.js"></script>
 <script src="js/portfolio/setting.js"></script>
 <script src="js/jquery.flexslider.js"></script>
-<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
-<script>
-</script>
-<script src="contactform/contactform.js"></script>
-
 </body>
 </html>
 
