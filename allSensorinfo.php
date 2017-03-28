@@ -15,8 +15,9 @@ if(isset($_REQUEST['humidity'])){
 
 $dbConn = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "");
 
-$allSensorInfo = $dbConn->prepare("SELECT `timestamp`, `temperature`, `humidity` from `plant_table");
+$allSensorInfo = $dbConn->prepare("SELECT `timestamp`, `temperature`, `humidity` from `plant_table`");
 $allSensorInfo->execute(array());
+echo("<input type='button' id='deletethis' value='Click here to remove this info'>");
 
 while($thisrow = $allSensorInfo->fetch(PDO::FETCH_ASSOC)){
     echo("<div>
@@ -26,5 +27,4 @@ while($thisrow = $allSensorInfo->fetch(PDO::FETCH_ASSOC)){
                 
         </div>");
 }
-echo("<input type='button' id='deletethis' value='Click here to delete this'>");
 ?>

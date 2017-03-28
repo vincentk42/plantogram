@@ -14,7 +14,7 @@ if (isset($_REQUEST["name"]) === true ) {
 if (isset($_REQUEST["potId"]) === true ) {
          $potId = ($_REQUEST["potId"]);
     }
-if (isset($_REQUEST["passowrd"]) === true ) {
+if (isset($_REQUEST["password"]) === true ) {
          $password = ($_REQUEST["password"]);
     }
 if (isset($_REQUEST["owner"]) === true ) {

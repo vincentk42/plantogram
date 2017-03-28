@@ -116,11 +116,13 @@ while ($thisRow1 = $results->fetch(PDO::FETCH_ASSOC)){
   <input type="text" id="name" placeholder="Your Name">
   <br>
   <input type="submit" value="Post Comment" id="finished">
-  </form>
-  <div id="all_comments">	
-	<div class="comment_div"> 
-	</div>
-  </div>
+</form>
+<form>
+	<input type="button" value="click here to get all the comments" id="getAllComments">
+	<div id="allComments"></div>
+  	<input type="button" id="allInfo" value="Click here to get all the LED sensor information">
+	<div id="sensorInfo" name="sensorStuff"></div>	
+</form>
 
 <div class="row";>
 
@@ -153,8 +155,18 @@ while ($thisRow1 = $results->fetch(PDO::FETCH_ASSOC)){
 				}
 			});
 		});
+		$('#allInfo').on("click", function() {
+			$.get("allSensorinfo.php", function(data) {
+				console.log("Coming back from allSensorinfo.php: " + data);
+				var resultedInfo = (data);
+				$('#sensorInfo').html( resultedInfo );
+				//console.log("here are the results in xml" + " " + resultedInfo);
+				document.getElementById("deletethis").addEventListener("click", function(){
+					$('#sensorInfo').html("");
+				});
+			});
+		});
 	});
-
 </script>
 
 <section class="callaction">
@@ -226,7 +238,32 @@ while ($thisRow1 = $results->fetch(PDO::FETCH_ASSOC)){
 	var commentVal = document.getElementById("comment").value;
 	//console.log('here are your values' + nameVal + " " + commentVal);
 
+	document.getElementById("getAllComments").addEventListener("click", function(){
+			$.getJSON("process_all_comments.php", function(data) {
+				//console.log("Coming back from Comments.php: " + data);
+				var newHtml = "";
+				var noMoreComments = document.createElement("button");
+				var addText = document.createTextNode("click to delete comments");
+				var finalButton = noMoreComments.appendChild(addText);
+				//document.newHtml.appendChild(noMoreComments)
+				for (var i = 0; i < data.length; i++) {
+					newHtml += "<div><p>Name: " + data[i].name + "<br>"
+						+ "Comment: " + data[i]['message'] + "</p></div>";
+				}
+				newHtml += "<input type='button' id='finalButton' value='Click this to remove comments'>";
+				$("#allComments").html(newHtml);
+				// var allComments = (data);
+				// $('#allComments').html( allComments );
 
+				document.getElementById("finalButton").addEventListener("click", function(){
+				//newHtml = "";
+					$("#allComments").html('');
+				});
+			});
+	
+	});
+
+	
 
 </script>
 <script src="js/jquery.js"></script>

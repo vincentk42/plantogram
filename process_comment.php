@@ -25,7 +25,7 @@ if(! $results)
     //$prepStmt->debugDumpParams();
 }
 
-echo('{"dude": "Your information has been received."}');
+//echo('{"dude": "Your information has been received."}');
 
 
 ?>
