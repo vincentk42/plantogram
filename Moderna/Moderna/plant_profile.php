@@ -23,8 +23,18 @@ if(isset($_REQUEST["post_time"]) === true) {
 		$time = ($_REQUEST["post_time"]);
 }
 
+$fullPlantStuff = $dbConn->prepare("SELECT `timestamp`, `temperature`, `humidity` from `plant_table");
+$fullPlantStuff->execute(array());
+
+$onlyPlantName = $dbConn->prepare("SELECT `plantName` from `plantprofile` order by rand() limit 1");
+$onlyPlantName->execute(array());
+
+$allPlantStuff = $dbConn->prepare("SELECT `timestamp`, `temperature`, `humidity` from `plant_table` order by `timestamp` desc limit 1");
+$allPlantStuff->execute(array());
+
 $allMessages = $dbConn->prepare("SELECT `name`, `comment`, `post_time` from `comments`");
 $allMessages->execute(array());
+
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +55,20 @@ $allMessages->execute(array());
 <link href="skins/default.css" rel="stylesheet" />
 
 <style>
+	.card{
+		margin: auto;
+		clear: both
+	}
+	.card-block {
+		margin: auto;
+		clear: both;
+	}
+	
 
+	}
+	.commentsOnly{
+		clear:both;
+	}
 </style>
 <script>
 
@@ -90,14 +113,41 @@ $allMessages->execute(array());
 
 <div class="card" style="width: 40rem;">
   <img class="card-img-top" src="plant1.jpg" alt="Card image cap">
+  <?php
+	while($thisrow = $onlyPlantName->fetch(PDO::FETCH_ASSOC)){
+	 	 echo("<div class='card-text'><p>Plant name: {$thisrow['plantName']}</p>
+	  	</div>");
+	}
+  ?>
+  
+  
+  
   <div class="card-block">
-    <h4 class="card-title">Plant Name</h4>
-    <p class="card-text">Small description of plant</p>
-    <a href="#" class="btn btn-primary">click on this to enlarge photo</a>
+	<?php
+	while($thisrow = $allPlantStuff->fetch(PDO::FETCH_ASSOC)){
+		echo("<div><p>Most recent LED information</p>
+					<p>timestamp: {$thisrow['timestamp']}</p>
+					<p>temperature: {$thisrow['temperature']}</p>
+					<p>humidity: {$thisrow['humidity']}</p>
+			</div>");
+		} 
+	?>
+	<script>
+	console.log("hey there");
+	</script>
+	<input type="button" id="allInfo" value="Click here to get all the LED sensor information">
+	<div id="sensorInfo" name="sensorStuff">
+	</div>
+	
   </div>
+
+</div>
 </div>
 <br>
 <br>
+<section class="commentsOnly">
+<h1>This is the comment section</h1>
+
 <form method='post' action="post_comments.php" id="commentForm">
   <textarea id="comment" placeholder="Write Your Comment Here....."></textarea>
   <br>
@@ -105,45 +155,10 @@ $allMessages->execute(array());
   <br>
   <input type="submit" value="Post Comment" id="finished">
   </form>
+</section>
   <div id="all_comments">	
 	<div class="comment_div"> 
-	</div>
-  </div>
 
-<div class="row";>
-
-<script src="js/jquery.js"></script>
-<script>
-	$(document).ready(function(e){
-		$('#commentForm').on('submit', function(e){
-			e.preventDefault();
-			var name = $('#name').val();
-			var comment = $('#comment').val();
-			//var time = $('#time').val();
-			//console.log("hey man" + comment);			
-			$.ajax({
-				type: "POST",
-				url: 'process_comment.php',
-				data: {
-					name:  name,
-					comment: comment,
-					//time: time,
-				},
-				dataType: 'json',
-				success: function(data) {
-					console.log("BACKATYOU: " + data);
-					$("#commentForm")[0].reset();
-					//console.log("check this out" + json['post_time']);
-				},
-				error: function(e) {
-					console.log("HAMMER TIME!");
-					console.log(e);
-				}
-			});
-		});
-	});
-
-</script>
 <?php
   while($thisrow = $allMessages->fetch(PDO::FETCH_ASSOC)){
     echo("<div class=\"col-xs-3\" style=\"overflow: hidden; border-color:#333\">
@@ -153,7 +168,9 @@ $allMessages->execute(array());
         </div>");
       } 
 ?>
-
+	</div>
+  </div>
+</section>
 <section class="callaction">
 <div class="container">
 	<div class="row">
@@ -218,13 +235,54 @@ $allMessages->execute(array());
 <!-- javascript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.js"></script>
 <script>
 	var nameVal = document.getElementById("name").value;
 	var commentVal = document.getElementById("comment").value;
 	//console.log('here are your values' + nameVal + " " + commentVal);
 
+	$(document).ready(function(e){
+		$('#commentForm').on('submit', function(e){
+			e.preventDefault();
+			var name = $('#name').val();
+			var comment = $('#comment').val();
+			//var time = $('#time').val();
+			//console.log("hey man" + comment);			
+			$.ajax({
+				type: "POST",
+				url: 'process_comment.php',
+				data: {
+					name:  name,
+					comment: comment,
+					//time: time,
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log("BACKATYOU: " + data);
+					$("#commentForm")[0].reset();
+					//console.log("check this out" + json['post_time']);
+				},
+				error: function(e) {
+					console.log("HAMMER TIME!");
+					console.log(e);
+				}
+			});
+		});
 
+		$('#allInfo').on("click", function() {
+			$.get("allSensorinfo.php", function(data) {
+				//console.log("Coming back from allSensorinfo.php: " + data);
+				var resultedInfo = (data);
+				$('#sensorInfo').append( resultedInfo );
+				//console.log("here are the results in xml" + " " + resultedInfo);
+			});
+		});
+	});
 
+document.getElementById("deletethis").addEventListener("click", function(){
+    var removedstuff = document.getElementById("sensorInfo");
+	removedstuff.removeChild
+});
 </script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
