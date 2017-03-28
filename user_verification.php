@@ -21,7 +21,7 @@ if (!$payload) {
 
   $dbConn = new PDO("mysql:host=127.0.0.1;dbname=test;charset=utf8mb4", "root", "");
   
-  $inputStr = "INSERT INTO plantogramlogin (`googleIDtoken`, `timestamp`) VALUES ({$userid}, NOW())";
+  $inputStr = "INSERT INTO plantogramlogin (`googleIDtoken`, `timestamp`) VALUES ('{$userid}', NOW())";
 
   $dbConn->query($inputStr);
 

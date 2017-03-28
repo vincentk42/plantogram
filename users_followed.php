@@ -1,4 +1,34 @@
 <!DOCTYPE html>
+<?php
+    $name = "";
+    $potId = "";
+    $password = "";
+    $owner = "";
+    $location = "";
+    $plantType = "";
+        
+    $dbConn = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "");
+if (isset($_REQUEST["name"]) === true ) {
+         $name = ($_REQUEST["name"]);
+    }
+if (isset($_REQUEST["potId"]) === true ) {
+         $potId = ($_REQUEST["potId"]);
+    }
+if (isset($_REQUEST["passowrd"]) === true ) {
+         $password = ($_REQUEST["password"]);
+    }
+if (isset($_REQUEST["owner"]) === true ) {
+         $owner = ($_REQUEST["owner"]);
+    }
+if (isset($_REQUEST["location"]) === true ) {
+         $location = ($_REQUEST["location"]);
+    }
+if (isset($_REQUEST["plantType"]) === true ) {
+         $plantType = ($_REQUEST["plantType"]);
+    }
+$allMessages = $dbConn->prepare("SELECT `name`, `potId`, `password`, `owner`, `location`, `plantType` from `planttest`");
+$allMessages->execute(array());
+?>
 
 <html lang="en">
 <head>
@@ -16,14 +46,6 @@
 
 <!-- Theme skin -->
 <link href="skins/default.css" rel="stylesheet" />
-
-<!-- =======================================================
-    Theme Name: Moderna
-    Theme URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-======================================================= -->
-
 </head>
 <body>
 <div id="wrapper">
@@ -45,6 +67,7 @@
 						<li><a href="plant_profile.php">Plant Profile</a></li>
 						<li><a href="plants_followed.php">Plants Followed</a></li>
 
+
                     </ul>
                 </div>
             </div>
@@ -54,14 +77,39 @@
 	<section id="inner-headline">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12">
-				
+			<div class="col-lg-12">	
 			</div>
 		</div>
 	</div>
 	</section>
-	
-	<section class="callaction">
+	<h1>Here are the users you're following</h1>
+    <?php
+    while($thisRow = $allMessages->fetch(PDO::FETCH_ASSOC)){
+        echo("<div class=\"col-xs-3\" style=\"overflow: hidden;\">
+		<a href=\"#\" class=\"thumbnail\"></a>
+			<p>name: {$thisRow['name']}</p> 
+			<p>potId: {$thisRow['potId']}</p>
+			<p>owner: {$thisRow['owner']}</p> 
+			<p>location: {$thisRow['location']}</p> 
+			<p>Planttype: {$thisRow['plantType']}</p>
+		
+		
+    </div>");
+    }
+    ?>
+<section class="callaction">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="big-cta">
+					<div class="cta-text">
+						<h2><span>Plants</span>...that you're following</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<section class="callaction">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -73,51 +121,8 @@
 			</div>
 		</div>
 	</div>
-<div class="container">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<h4>Create your user profile <strong>here</strong></h4>
-				<form id="user_profile" method="post" action="process_user_profile.php">
-                <div id="sendmessage">Your message has been sent. Thank you!</div>
-                <div id="errormessage"></div>
-                    
-					<div class="form-group">
-                        <input type="text" name="user_name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
-                        <div class="validation"></div>
-                    </div>
-                    
-					<div class="form-group">
-                        <input type="text" class="form-control" name="user_potId" id="potId" placeholder="potId" data-rule="minlen:4" data-msg="Please enter at least 4 characters" required/>
-                        <div class="validation"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="user_password" id="password" placeholder="password" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required/>
-                        <div class="validation"></div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="user_owner" id="owner" placeholder="owner" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" required/>
-                        <div class="validation"></div>
-                    </div>
-					
-                    <div class="form-group">
-                        <input type="text" name="user_location" class="form-control" id="location" placeholder="location" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
-                        <div class="validation"></div>
-                    </div>
-					<div class="form-group">
-                        <input type="text" name="user_plantType" class="form-control" id="plantType" placeholder="plantType" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
-                        <div class="validation"></div>
-                    </div>
-					<div class="form-group">
-                        <input type="text" name="user_plantPic" class="form-control" id="plantPic" placeholder="plantPic" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
-                        <div class="validation"></div>
-                    </div>
-                    <div class="text-center"><button type="submit" class="btn btn-theme">Submit Info</button></div>
-                </form>
-			</div>
-		</div>
-	</div>
-	</section>
-	<footer>
+
+<footer>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
@@ -145,11 +150,39 @@
 					</ul>
 				</div>
 			</div>
+			<!--<div class="col-lg-3">
+				<div class="widget">
+					<h5 class="widgetheading">Latest posts</h5>
+					<ul class="link-list">
+						<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+						<li><a href="#">Pellentesque et pulvinar enim. Quisque at tempor ligula</a></li>
+						<li><a href="#">Natus error sit voluptatem accusantium doloremque</a></li>
+					</ul>
+				</div>
+			</div>-->
+			<!--<div class="col-lg-3">
+				<div class="widget">
+					<h5 class="widgetheading">Flickr photostream</h5>
+					<div class="flickr_badge">
+						<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=8&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=34178660@N03"></script>
+					</div>
+					<div class="clear">
+					</div>
+				</div>
+			</div>-->
 		</div>
 	</div>
 	<div id="sub-footer">
 		<div class="container">
 			<div class="row">
+				<!--<div class="col-lg-6">
+					<div class="copyright">
+						<p>&copy; Moderna Theme. All right reserved.</p>
+                        <div class="credits">
+                            <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                        </div>
+					</div>
+				</div>-->
 				<div class="col-lg-6">
 					<ul class="social-network">
 						<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -165,46 +198,9 @@
 	</footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
-<script src="js/jquery.js"></script>
-<script>
-	$(document).ready(function(){
-		$('#user_profile').on('submit', function(e){
-			e.preventDefault();
-			var userName = $('#name').val();
-			var userpotId = $('#potId').val();
-			var userPassword = $('#password').val();
-			var userOwner = $('#owner').val();
-			var userLocation = $('#location').val();
-			var userPlantType = $('#plantType').val();
-			var userplantPic = $('#plantPic').val();
-			console.log("hey man nice shot" + userName);
-			$.ajax({
-				type: "POST",
-				url: 'process_user_profile.php',
-				data: {
-					userName: userName,
-					userpotId: userpotId,
-					userPassword: userPassword,
-					userOwner: userOwner,
-					userLocation: userLocation,
-					userPlantType: userPlantType,
-					userplantPic: userplantPic,
-				},
-				success: function(data){
-					alert(data);
-					console.log("hey jackass" + userName);
-					$("#user_profile")[0].reset();
-
-				}
-			});
-		});
-	});
-</script>
-
 <!-- javascript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="//code.jquery.com/jquery-1.11.3.min.js?x41610"></script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -214,9 +210,12 @@
 <script src="js/portfolio/jquery.quicksand.js"></script>
 <script src="js/portfolio/setting.js"></script>
 <script src="js/jquery.flexslider.js"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 <script src="js/animate.js"></script>
 <script src="js/custom.js"></script>
+<script>
+</script>
+<script src="contactform/contactform.js"></script>
 
 </body>
 </html>
-

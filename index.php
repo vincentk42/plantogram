@@ -149,7 +149,7 @@
                 if (profile.getId() === currentUser) {
                     window.location.href = "plants_followed.php" + "?token=" + currentUser;
                 } else {
-                    document.getElementByID("errorMsg").innerHTML = "Something went wrong. We blame Google.";
+                    document.getElementById("errorMsg").innerHTML = "Something went wrong. We blame Google.";
                 }
             };
             xhr.send('idtoken=' + id_token);

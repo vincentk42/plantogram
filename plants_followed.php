@@ -9,7 +9,7 @@ if (isset($_REQUEST['token'])) {
 
     $dbConn = new PDO("mysql:host=127.0.0.1;dbname=test;charset=utf8mb4", "root", "");
 
-    $inputStrVerify = "SELECT `googleIDtoken` from plantogramlogin WHERE `googleIDtoken` = {$IDtoken}";
+    $inputStrVerify = "SELECT `googleIDtoken` from plantogramlogin WHERE `googleIDtoken` = '{$IDtoken}'";
 
     $results = $dbConn->query($inputStrVerify);
 
