@@ -36,7 +36,7 @@ function checkingForUnsent(){
         if(err) throw err;
 //        console.log('Status: ' + rows);
 //        console.log(rows);
-       console.log(rows);
+            // console.log(rows);
         for (t = 0; t < rows.length; t++) {
             if(rows[t]["status"] === 0){
                 number = t;  
@@ -50,7 +50,7 @@ function checkingForUnsent(){
             for(t = 0; t < rows.length; t++){
                 var querystring = require("querystring");
                 var qs = querystring.stringify(rows[t]);
-                console.log(qs);
+                // console.log(qs);
                 secondQs = secondQs + "&"
             }
         });
@@ -72,7 +72,7 @@ function doIt(b) {
     var querystring = require("querystring");
     var qs = querystring.stringify(data);
     var qslength = qs.length;
-    console.log("THIS IS THE STRINGITY " + qs);
+    // console.log("THIS IS THE STRINGITY " + qs);
     
 
     var options = {
@@ -188,8 +188,12 @@ var led = null;
 // jonny five requirement, as it isnt blink but now on.
 
 board.on("ready", function () {
-    led = new five.Led("P1-11");
+    led = new five.Leds(["P1-11", "P1-13", "P1-15"]);
+    this.on("exit", function() {
+        led.off();
+    });
 });
+
 
 var sensor = {
     sensors: [{
@@ -198,21 +202,35 @@ var sensor = {
         pin: 4
     }],
     read: function () {
-        if (led !== null) led.on();
+        // if (led !== null) led[1].on();
 
         for (var a in this.sensors) {
             var b = sensorLib.read(this.sensors[a].type, this.sensors[a].pin);
             if (b.temperature.toFixed(1) !== "0.0") {
-                console.log(b.temperature.toFixed(1) + "°C, " +
-                    b.humidity.toFixed(1) + "%");
-                doItAgain(b);
-                //            console.log("hello this is working");
-                doIt(b);
+                console.log(b.temperature.toFixed(1) + "°C, " +  b.humidity.toFixed(1) + "%");
+                    doItAgain(b);
+                    doIt(b);
+                  if(b.humidity.toFixed(1) <= 35){
+                        if(led !== null) led.off();
+                        if(led !== null) led[0].on();
+                  };
+                  if(b.humidity.toFixed(1) <= 40 && b.humidity.toFixed(1) > 35){
+                        if(led !== null) led.off();
+
+                        if(led !== null) led[1].on();
+
+                  }
+                  if(b.humidity.toFixed(1) > 40){
+                        if(led !== null) led.off();
+
+                        if(led !== null) led[2].on();
+
+                  };
             };
         }
 
 
-        if (led !== null) led.off();
+        // if (led !== null) led.off();
 
         setTimeout(function () {
             sensor.read();
