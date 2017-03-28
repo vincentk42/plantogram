@@ -70,7 +70,18 @@ $token_var = $_REQUEST['token'];
                         <li class="active"><a href="plants_followed.php<?php echo('?token='.$token_var); ?>">Plants Followed</a></li>
                         <li><a href="create_plant_profile.php<?php echo('?token='.$token_var); ?>">Create Plant Profile</a></li>
                         <li><a href="create_user_profile.php<?php echo('?token='.$token_var); ?>">Create User Profile </a></li>
-                    </ul>
+                    	<li>
+							<a href="signout.php" onclick="signOut();">Sign out</a>
+							<script>
+							function signOut() {
+								var auth2 = gapi.auth2.getAuthInstance();
+								auth2.signOut().then(function () {
+								console.log('User signed out.');
+								});
+							}
+							</script>
+						</li>
+					</ul>
                 </div>
             </div>
         </div>
