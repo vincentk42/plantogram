@@ -6,6 +6,7 @@ var Raspi = require("raspi-io");
 var mysql = require("mysql");
 var http = require('http');
 
+var remoteDBServer = '192.168.1.158';
 var status = false;
 
 var board = new five.Board({
@@ -76,9 +77,9 @@ function doIt(b) {
     
 
     var options = {
-        host: '192.168.1.155',
+        host: remoteDBServer,
 //        path: '/myStuff/plantogramInsert.php?temp=' + b.temperature.toFixed(1) + '&hum=' + b.humidity.toFixed(1)
-        path: '/myStuff/plantogramInsert.php',
+        path: 'plantogramInsert.php',
         method: 'post',
         headers:{
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -239,3 +240,10 @@ var sensor = {
 };
 
 sensor.read();
+// process.on('exit', (code) => {
+//   console.log(`About to exit`);
+// });
+// process.on("SIGINT", function(){ 
+//     console.log("RFECEIVE");
+//         led.off();
+// });
